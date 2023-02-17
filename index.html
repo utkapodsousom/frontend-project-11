@@ -6,15 +6,16 @@
     </head>
     <body>
         <div class="container">
-            <div class="row g-3 p-4">
-                <div class="col-auto">
+            <form action="" method="POST" id="form" class="row g-3 p-4">
+                <div class="col">
                     <label for="inputPasswrss-url" class="visually-hidden">RSS Address Link</label>
-                    <input type="text" class="form-control" id="rss-url" placeholder="Link to RSS">
+                    <input type="text" name="url" class="form-control" id="rss-url" placeholder="Link to RSS" required>
                 </div>
                 <div class="col-auto">
-                    <button type="submit" class="btn btn-primary mb-3">Add RSS</button>
+                    <button type="submit" id="form-submit" class="btn btn-primary mb-3">Add RSS</button>
                 </div>
-            </div>
+            </form>
+            <p class="feedback m-0 position-absolute small text-danger"></p>
         </div>
     </body>
     
