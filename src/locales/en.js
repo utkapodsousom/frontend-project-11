@@ -7,6 +7,9 @@ export default {
       inputExample: 'Example: ',
       addButton: 'Add RSS Feed',
     },
+    info: {
+      success: 'RSS loaded',
+    },
     errors: {
       invalidUrl: 'Link must be a valid URL',
       alreadyInList: 'RSS feed already exists',

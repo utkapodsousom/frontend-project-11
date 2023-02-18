@@ -1,13 +1,24 @@
 import 'bootstrap/scss/bootstrap.scss';
 import './style.scss';
+import axios from 'axios';
 import * as yup from 'yup';
 import onChange from 'on-change';
 import i18next from 'i18next';
+import lodash from 'lodash';
+import { uniqueId } from 'lodash';
 
 import resources from './locales';
 import render from './render';
+import proxyURL from './originProxy';
+import XMLParser from './parser';
 
-const handleError = (error) => error.message.key ?? 'unknown';
+const handleError = (error) => {
+  if (axios.isAxiosError(error)) {
+    return 'networkError';
+  }
+
+  return error.message.key ?? 'unknown';
+};
 
 const app = async () => {
   await i18next.init({
@@ -45,7 +56,9 @@ const app = async () => {
   const initialState = {
     formState: 'idle',
     error: null,
+    links: [],
     feeds: [],
+    posts: [],
   };
 
   const watchedState = onChange(initialState, render(initialState, elements, i18next));
@@ -53,13 +66,16 @@ const app = async () => {
   // схема валидации урла, проверяем на наличие урла в стэйте
   const makeSchema = (addedLinks) => yup.string().required().url().notOneOf(addedLinks);
 
+  // ссылка на сгенерированный RSS для тестирования
+  // https://lorem-rss.hexlet.app/feed
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // получили ввод из инпута
     const formData = new FormData(event.target);
     const input = formData.get('url');
-    const addedLinks = watchedState.feeds.map((feed) => feed);
+    const addedLinks = watchedState.links.map((link) => link);
     const schema = makeSchema(addedLinks);
     schema
       .validate(input)
@@ -68,8 +84,18 @@ const app = async () => {
         watchedState.formState = 'submitting';
       })
       .then(() => {
+        watchedState.error = null;
         watchedState.formState = 'added';
-        watchedState.feeds.push(input);
+        watchedState.links.push(input);
+        axios.get(proxyURL(input)).then(({ data: { contents } }) => {
+          const { feed, posts } = XMLParser(contents);
+          watchedState.feeds.push(feed);
+          posts.forEach((post) => {
+            watchedState.posts.push({ id: uniqueId(), ...post });
+          });
+        }).catch((e) => {
+          watchedState.error = handleError(e);
+        });
       })
       .catch((e) => {
         watchedState.formState = 'invalid';

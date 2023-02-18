@@ -1,4 +1,4 @@
-const renderState = (elements, value) => {
+const renderState = (elements, value, i18next) => {
   switch (value) {
     case 'invalid':
       elements.input.classList.add('is-invalid');
@@ -11,7 +11,8 @@ const renderState = (elements, value) => {
     case 'added':
       elements.input.classList.remove('is-invalid');
       elements.input.classList.remove('text-danger');
-      elements.feedback.textContent = '';
+      elements.feedback.classList.add('text-success');
+      elements.feedback.textContent = i18next.t('info.success');
       elements.form.reset();
       elements.input.focus();
       break;
