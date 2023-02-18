@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-</head>
-<body class="d-flex flex-column min-vh-100">
+  </head>
+  <body class="d-flex flex-column min-vh-100">
     <main class="flex-grow-1">
-        <section class="container-fluid bg-dark p-5">
-            <div class="container">
+      <section class="container-fluid bg-dark p-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto text-white">
+              <h1 class="title display-3 mb-0 text-center"></h1>
+              <p class="subtitle lead text-center"></p>
+              <form
+                action=""
+                method="POST"
+                id="form"
+                class="rss-form text-body"
+              >
                 <div class="row">
-                    <div class="col-md-10 col-lg-8 mx-auto text-white">
-                        <h1 class="title display-3 mb-0 text-center"></h1>
-                        <p class="subtitle lead text-center"></p>
-                        <form action="" method="POST" id="form" class="rss-form text-body">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="inputPasswrss-url" class="input-label visually-hidden"></label>
-                                    <input type="text" name="url" class="form-control" id="rss-url" placeholder="" required>
-                                </div>
-                                <div class="col-auto">
-                                    <button type="submit" id="form-submit" class="btn btn-primary mb-3"></button>
-                                </div>
-                            </div>
-                        </form>
-                        <p class="feedback position-absolute m-0 small"></p>
-                    </div>
+                  <div class="col">
+                    <label
+                      for="inputPasswrss-url"
+                      class="input-label visually-hidden"
+                    ></label>
+                    <input
+                      type="text"
+                      name="url"
+                      class="form-control"
+                      id="rss-url"
+                      placeholder=""
+                      required
+                    />
+                  </div>
+                  <div class="col-auto">
+                    <button
+                      type="submit"
+                      id="form-submit"
+                      class="btn btn-primary mb-3"
+                    ></button>
+                  </div>
                 </div>
+              </form>
+              <p class="feedback position-absolute m-0 small"></p>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </main>
-</body>
+  </body>
 </html>
