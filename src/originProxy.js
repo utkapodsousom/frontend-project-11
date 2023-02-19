@@ -1,1 +1,1 @@
-export default (link) => `https://allorigins.hexlet.app/get?url=${encodeURIComponent(link)}`;
+export default (link) => `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(link)}`;

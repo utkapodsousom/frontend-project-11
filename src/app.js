@@ -1,10 +1,7 @@
-import 'bootstrap/scss/bootstrap.scss';
-import './style.scss';
 import axios from 'axios';
 import * as yup from 'yup';
 import onChange from 'on-change';
 import i18next from 'i18next';
-import lodash from 'lodash';
 import { uniqueId } from 'lodash';
 
 import resources from './locales';
@@ -43,6 +40,10 @@ const app = async () => {
     feedback: document.querySelector('.feedback'),
     title: document.querySelector('.title'),
     subtitle: document.querySelector('.subtitle'),
+    feedsTitle: document.querySelector('.feeds__title'),
+    feedsList: document.querySelector('.feeds__list'),
+    postsTitle: document.querySelector('.posts__title'),
+    postsList: document.querySelector('.posts__list'),
   };
 
   // рендерим текст из i18next
@@ -52,6 +53,8 @@ const app = async () => {
   elements.inputLabel.textContent = i18next.t('page.inputPlaceholder');
   elements.input.setAttribute('placeholder', i18next.t('page.inputPlaceholder'));
   elements.submitBtn.textContent = i18next.t('page.addButton');
+  elements.feedsTitle.textContent = i18next.t('page.feedsTitle');
+  elements.postsTitle.textContent = i18next.t('page.postsTitle');
 
   const initialState = {
     formState: 'idle',
@@ -84,15 +87,15 @@ const app = async () => {
         watchedState.formState = 'submitting';
       })
       .then(() => {
-        watchedState.error = null;
-        watchedState.formState = 'added';
-        watchedState.links.push(input);
         axios.get(proxyURL(input)).then(({ data: { contents } }) => {
           const { feed, posts } = XMLParser(contents);
           watchedState.feeds.push(feed);
           posts.forEach((post) => {
             watchedState.posts.push({ id: uniqueId(), ...post });
           });
+          watchedState.error = null;
+          watchedState.formState = 'added';
+          watchedState.links.push(input);
         }).catch((e) => {
           watchedState.error = handleError(e);
         });

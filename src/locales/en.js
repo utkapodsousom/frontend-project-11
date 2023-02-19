@@ -6,6 +6,8 @@ export default {
       inputPlaceholder: 'RSS Address Link',
       inputExample: 'Example: ',
       addButton: 'Add RSS Feed',
+      feedsTitle: 'Feeds',
+      postsTitle: 'Posts',
     },
     info: {
       success: 'RSS loaded',
@@ -13,6 +15,7 @@ export default {
     errors: {
       invalidUrl: 'Link must be a valid URL',
       alreadyInList: 'RSS feed already exists',
+      networkError: 'Failed to connect',
       unknown: 'Oops... Something went wrong',
     },
   },
