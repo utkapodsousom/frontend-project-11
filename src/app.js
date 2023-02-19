@@ -6,16 +6,10 @@ import { uniqueId } from 'lodash';
 
 import resources from './locales';
 import render from './render';
-import proxyURL from './originProxy';
+import getProxiedURL from './originProxy';
 import XMLParser from './parser';
-
-const handleError = (error) => {
-  if (axios.isAxiosError(error)) {
-    return 'networkError';
-  }
-
-  return error.message.key ?? 'unknown';
-};
+import handleError from './errorHandler';
+import updateFeeds from './updateFeeds';
 
 const app = async () => {
   await i18next.init({
@@ -59,12 +53,13 @@ const app = async () => {
   const initialState = {
     formState: 'idle',
     error: null,
-    links: [],
+    uniqueLinks: [],
     feeds: [],
     posts: [],
   };
 
   const watchedState = onChange(initialState, render(initialState, elements, i18next));
+  updateFeeds(watchedState);
 
   // схема валидации урла, проверяем на наличие урла в стэйте
   const makeSchema = (addedLinks) => yup.string().required().url().notOneOf(addedLinks);
@@ -78,7 +73,7 @@ const app = async () => {
     // получили ввод из инпута
     const formData = new FormData(event.target);
     const input = formData.get('url');
-    const addedLinks = watchedState.links.map((link) => link);
+    const addedLinks = watchedState.uniqueLinks.map((link) => link);
     const schema = makeSchema(addedLinks);
     schema
       .validate(input)
@@ -87,7 +82,7 @@ const app = async () => {
         watchedState.formState = 'submitting';
       })
       .then(() => {
-        axios.get(proxyURL(input)).then(({ data: { contents } }) => {
+        axios.get(getProxiedURL(input)).then(({ data: { contents } }) => {
           const { feed, posts } = XMLParser(contents);
           watchedState.feeds.push(feed);
           posts.forEach((post) => {
@@ -95,14 +90,14 @@ const app = async () => {
           });
           watchedState.error = null;
           watchedState.formState = 'added';
-          watchedState.links.push(input);
+          watchedState.uniqueLinks.push(input);
         }).catch((e) => {
-          watchedState.error = handleError(e);
+          watchedState.error = handleError(axios, e);
         });
       })
       .catch((e) => {
         watchedState.formState = 'invalid';
-        watchedState.error = handleError(e);
+        watchedState.error = handleError(axios, e);
       });
   };
 
