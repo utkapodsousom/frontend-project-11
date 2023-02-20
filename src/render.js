@@ -14,9 +14,12 @@ const createFeedsHTML = (feeds) => {
 
 const createPostsHTML = (posts) => {
   let postsHTML = '';
-  posts.forEach(({ postDescription, postLink }) => {
+  posts.forEach(({ id, postDescription, postLink }) => {
     const layout = `
-      <li class="posts__item list-group-item border-0"><a href="${postLink}" rel="noopener noreferrer" target="_blank">${postDescription}</a></li>
+      <li class="posts__item list-group-item d-flex justify-content-between align-items-start border-0">
+        <a class="fw-bold" data-id="${id}" href="${postLink}" rel="noopener noreferrer" target="_blank">${postDescription}</a>
+        <button type="button" class="btn btn-outline-primary btn-sm" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal">Preview</button>
+      </li>
     `;
     postsHTML += layout;
   });
