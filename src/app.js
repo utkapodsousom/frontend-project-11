@@ -34,9 +34,7 @@ const app = async () => {
     feedback: document.querySelector('.feedback'),
     title: document.querySelector('.title'),
     subtitle: document.querySelector('.subtitle'),
-    // feedsTitle: document.querySelector('.feeds__title'),
     feedsList: document.querySelector('.feeds__list'),
-    // postsTitle: document.querySelector('.posts__title'),
     postsList: document.querySelector('.posts__list'),
     feedsColumn: document.querySelector('.feeds'),
     postsColumn: document.querySelector('.posts'),
@@ -75,6 +73,22 @@ const app = async () => {
 
   // ссылка на сгенерированный RSS для тестирования
   // https://lorem-rss.hexlet.app/feed
+
+  const postLinkClickListener = (event) => {
+    let postId;
+    if (event.target.classList.contains('btn')) {
+      postId = event.target.dataset.id;
+      watchedState.uiState.selectedPostId = postId;
+    }
+    if (event.target.classList.contains('fw-bold')) {
+      const btnElement = event.target.nextElementSibling;
+      postId = btnElement.dataset.id;
+    }
+    watchedState.uiState.readPosts.add(postId);
+  };
+
+  const postsContainer = document.querySelector('.posts');
+  postsContainer.addEventListener('click', postLinkClickListener);
 
   const handleSubmit = (event) => {
     event.preventDefault();

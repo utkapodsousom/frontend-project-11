@@ -9,10 +9,11 @@ const createFeedsList = (feeds, i18next) => {
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'feeds__list');
   feeds.forEach(({ title, description }) => {
-    ul.innerHTML += `<li class="feeds__item feed list-group-item">
-    <h3 class="feed__title h5 m-0">${title}</h3>
-    <p class="feed__description m-0 small text-black-50">${description}</p>
-  </li>`;
+    ul.innerHTML += `
+    <li class="feeds__item feed list-group-item">
+      <h3 class="feed__title h5 m-0">${title}</h3>
+      <p class="feed__description m-0 small text-black-50">${description}</p>
+    </li>`;
   });
   fragment.append(ul);
   return fragment;
@@ -27,7 +28,11 @@ const createPostsColumn = (posts, i18next) => {
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'posts__list');
   posts.forEach(({ id, postLink, postDescription }) => {
-    ul.innerHTML += `<li class="posts__item list-group-item d-flex justify-content-between align-items-start border-0"><a class="fw-bold" data-id="${id}" href="${postLink}" rel="noopener noreferrer" target="_blank">${postDescription}</a><button type="button" class="btn btn-outline-primary btn-sm" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal">${i18next.t('page.postButton')}</button></li>`;
+    ul.innerHTML += `
+      <li class="posts__item list-group-item d-flex justify-content-between align-items-start border-0">
+        <a class="fw-bold" data-id="${id}" href="${postLink}" rel="noopener noreferrer" target="_blank">${postDescription}</a>
+        <button type="button" class="btn btn-outline-primary btn-sm" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal">${i18next.t('page.postButton')}</button>
+      </li>`;
   });
   fragment.append(ul);
   return fragment;
@@ -74,6 +79,7 @@ const renderError = (state, { feedback }, error, i18next) => {
 };
 
 const render = (state, elements, i18next) => (path, value) => {
+  console.log(path, value);
   switch (path) {
     case 'error':
       if (!isEmpty(value)) {
@@ -127,8 +133,6 @@ const render = (state, elements, i18next) => (path, value) => {
       elements.feedback.classList.add('text-danger');
       elements.feedback.textContent = i18next.t('errors.unknown');
   }
-
-  console.log(path, value);
 };
 
 export default render;
