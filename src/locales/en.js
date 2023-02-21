@@ -9,6 +9,7 @@ export default {
       feedsTitle: 'Feeds',
       postsTitle: 'Posts',
       postButton: 'Preview',
+      modalCloseBtn: 'dismiss',
     },
     info: {
       success: 'RSS loaded',

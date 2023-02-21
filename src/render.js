@@ -31,7 +31,14 @@ const createPostsColumn = (posts, i18next) => {
     ul.innerHTML += `
       <li class="posts__item list-group-item d-flex justify-content-between align-items-start border-0">
         <a class="fw-bold" data-id="${id}" href="${postLink}" rel="noopener noreferrer" target="_blank">${postDescription}</a>
-        <button type="button" class="btn btn-outline-primary btn-sm" data-id="${id}" data-bs-toggle="modal" data-bs-target="#modal">${i18next.t('page.postButton')}</button>
+        <button 
+          type="button"
+          class="btn btn-outline-primary btn-sm" 
+          data-id="${id}" 
+          data-bs-toggle="modal" 
+          data-bs-target="#modal">
+            ${i18next.t('page.postButton')}
+        </button>
       </li>`;
   });
   fragment.append(ul);
@@ -110,12 +117,15 @@ const render = (state, elements, i18next) => (path, value) => {
       break;
 
     case 'uiState.selectedPostId': {
-      const { title, body, linkBtn } = elements.modalWindow;
+      const {
+        title, body, linkBtn, closeBtn,
+      } = elements.modalWindow;
       const selectedPost = state.posts.find((post) => post.id === value);
       title.textContent = selectedPost.postTitle;
       body.textContent = selectedPost.postDescription;
       linkBtn.setAttribute('href', selectedPost.postLink);
-      linkBtn.innerHTML = i18next.t('page.postButton');
+      linkBtn.textContent = i18next.t('page.postButton');
+      closeBtn.textContent = i18next.t('page.modalCloseBtn');
       break;
     }
 

@@ -42,6 +42,7 @@ const app = async () => {
       title: document.querySelector('.modal-title'),
       body: document.querySelector('.modal-body'),
       linkBtn: document.querySelector('.modal-footer a'),
+      closeBtn: document.querySelector('.modal-footer button'),
     },
   };
 
