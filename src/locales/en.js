@@ -8,6 +8,7 @@ export default {
       addButton: 'Add RSS Feed',
       feedsTitle: 'Feeds',
       postsTitle: 'Posts',
+      postButton: 'Preview',
     },
     info: {
       success: 'RSS loaded',

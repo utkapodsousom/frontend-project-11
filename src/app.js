@@ -34,10 +34,17 @@ const app = async () => {
     feedback: document.querySelector('.feedback'),
     title: document.querySelector('.title'),
     subtitle: document.querySelector('.subtitle'),
-    feedsTitle: document.querySelector('.feeds__title'),
+    // feedsTitle: document.querySelector('.feeds__title'),
     feedsList: document.querySelector('.feeds__list'),
-    postsTitle: document.querySelector('.posts__title'),
+    // postsTitle: document.querySelector('.posts__title'),
     postsList: document.querySelector('.posts__list'),
+    feedsColumn: document.querySelector('.feeds'),
+    postsColumn: document.querySelector('.posts'),
+    modalWindow: {
+      title: document.querySelector('.modal-title'),
+      body: document.querySelector('.modal-body'),
+      linkBtn: document.querySelector('.modal-footer a'),
+    },
   };
 
   // рендерим текст из i18next
@@ -47,8 +54,6 @@ const app = async () => {
   elements.inputLabel.textContent = i18next.t('page.inputPlaceholder');
   elements.input.setAttribute('placeholder', i18next.t('page.inputPlaceholder'));
   elements.submitBtn.textContent = i18next.t('page.addButton');
-  elements.feedsTitle.textContent = i18next.t('page.feedsTitle');
-  elements.postsTitle.textContent = i18next.t('page.postsTitle');
 
   const initialState = {
     formState: 'idle',
@@ -56,6 +61,10 @@ const app = async () => {
     uniqueLinks: [],
     feeds: [],
     posts: [],
+    uiState: {
+      selectedPostId: null,
+      readPosts: new Set(),
+    },
   };
 
   const watchedState = onChange(initialState, render(initialState, elements, i18next));
@@ -82,18 +91,21 @@ const app = async () => {
         watchedState.formState = 'submitting';
       })
       .then(() => {
-        axios.get(getProxiedURL(input)).then(({ data: { contents } }) => {
-          const { feed, posts } = XMLParser(contents);
-          watchedState.feeds.push(feed);
-          posts.forEach((post) => {
-            watchedState.posts.push({ id: uniqueId(), ...post });
+        axios
+          .get(getProxiedURL(input))
+          .then(({ data: { contents } }) => {
+            const { feed, posts } = XMLParser(contents);
+            watchedState.feeds.push(feed);
+            posts.forEach((post) => {
+              watchedState.posts.push({ id: uniqueId(), ...post });
+            });
+            watchedState.error = null;
+            watchedState.formState = 'added';
+            watchedState.uniqueLinks.push(input);
+          })
+          .catch((e) => {
+            watchedState.error = handleError(axios, e);
           });
-          watchedState.error = null;
-          watchedState.formState = 'added';
-          watchedState.uniqueLinks.push(input);
-        }).catch((e) => {
-          watchedState.error = handleError(axios, e);
-        });
       })
       .catch((e) => {
         watchedState.formState = 'invalid';
