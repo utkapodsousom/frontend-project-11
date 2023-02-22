@@ -86,7 +86,6 @@ const renderError = (state, { feedback }, error, i18next) => {
 };
 
 const render = (state, elements, i18next) => (path, value) => {
-  console.log(path, value);
   switch (path) {
     case 'error':
       if (!isEmpty(value)) {
