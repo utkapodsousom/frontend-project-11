@@ -4,7 +4,7 @@ import onChange from 'on-change';
 import i18next from 'i18next';
 import { uniqueId } from 'lodash';
 
-import resources from './locales';
+import ru from './locales/ru';
 import render from './render';
 import getProxiedURL from './originProxy';
 import XMLParser from './parser';
@@ -13,8 +13,10 @@ import updateFeeds from './updateFeeds';
 
 const app = async () => {
   await i18next.init({
-    lng: 'en-US',
-    resources,
+    lng: 'ru',
+    resources: {
+      ru,
+    },
   });
 
   yup.setLocale({

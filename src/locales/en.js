@@ -9,7 +9,7 @@ export default {
       feedsTitle: 'Feeds',
       postsTitle: 'Posts',
       postButton: 'Preview',
-      modalCloseBtn: 'dismiss',
+      modalCloseBtn: 'Close',
     },
     info: {
       success: 'RSS loaded',
@@ -18,6 +18,8 @@ export default {
       invalidUrl: 'Link must be a valid URL',
       alreadyInList: 'RSS feed already exists',
       networkError: 'Failed to connect',
+      noRSS: 'No valid RSS found',
+      empty: 'Field can not be empty',
       unknown: 'Oops... Something went wrong',
     },
   },
