@@ -27,10 +27,10 @@ const createPostsColumn = (posts, i18next) => {
   fragment.append(postsTitle);
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'posts__list');
-  posts.forEach(({ id, postLink, postDescription }) => {
+  posts.forEach(({ id, postLink, postTitle }) => {
     ul.innerHTML += `
       <li class="posts__item list-group-item d-flex justify-content-between align-items-start border-0">
-        <a class="fw-bold" data-id="${id}" href="${postLink}" rel="noopener noreferrer" target="_blank">${postDescription}</a>
+        <a class="fw-bold" data-id="${id}" href="${postLink}" rel="noopener noreferrer" target="_blank">${postTitle}</a>
         <button 
           type="button"
           class="btn btn-outline-primary btn-sm" 
@@ -51,6 +51,16 @@ const makeReadLinks = (links, countainer) => {
     linkElement.classList.remove('fw-bold');
     linkElement.classList.add('fw-normal', 'link-secondary');
   });
+};
+
+const renderPosts = (state, elements, value, i18next) => {
+  elements.postsColumn.innerHTML = '';
+  elements.postsColumn.append(createPostsColumn(value, i18next));
+  if (state.uiState.readPosts.length !== 0) {
+    const idReadPosts = Array.from(state.uiState.readPosts);
+    const links = value.filter(({ id }) => idReadPosts.includes(id)).map((post) => post.postLink);
+    makeReadLinks(links, elements.postsColumn);
+  }
 };
 
 const renderState = (elements, value, i18next) => {
@@ -104,15 +114,7 @@ const render = (state, elements, i18next) => (path, value) => {
       break;
 
     case 'posts':
-      elements.postsColumn.innerHTML = '';
-      elements.postsColumn.append(createPostsColumn(value, i18next));
-      if (state.uiState.readPosts.length !== 0) {
-        const idReadPosts = Array.from(state.uiState.readPosts);
-        const links = value
-          .filter(({ id }) => idReadPosts.includes(id))
-          .map((post) => post.postLink);
-        makeReadLinks(links, elements.postsColumn);
-      }
+      renderPosts(state, elements, value, i18next);
       break;
 
     case 'uiState.selectedPostId': {

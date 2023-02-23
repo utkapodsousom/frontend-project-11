@@ -5,6 +5,7 @@ import i18next from 'i18next';
 import { uniqueId } from 'lodash';
 
 import ru from './locales/ru';
+import en from './locales/en';
 import render from './render';
 import getProxiedURL from './originProxy';
 import XMLParser from './parser';
@@ -16,6 +17,7 @@ const app = async () => {
     lng: 'ru',
     resources: {
       ru,
+      en,
     },
   });
 
@@ -73,9 +75,6 @@ const app = async () => {
 
   // схема валидации урла, проверяем на наличие урла в стэйте
   const makeSchema = (addedLinks) => yup.string().required().url().notOneOf(addedLinks);
-
-  // ссылка на сгенерированный RSS для тестирования
-  // https://lorem-rss.hexlet.app/feed
 
   const postLinkClickListener = (event) => {
     let postId;
