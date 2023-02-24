@@ -42,6 +42,7 @@ const app = async () => {
     postsList: document.querySelector('.posts__list'),
     feedsColumn: document.querySelector('.feeds'),
     postsColumn: document.querySelector('.posts'),
+    example: document.querySelector('.example'),
     modalWindow: {
       title: document.querySelector('.modal-title'),
       body: document.querySelector('.modal-body'),
@@ -57,6 +58,7 @@ const app = async () => {
   elements.inputLabel.textContent = i18next.t('page.inputPlaceholder');
   elements.input.setAttribute('placeholder', i18next.t('page.inputPlaceholder'));
   elements.submitBtn.textContent = i18next.t('page.addButton');
+  elements.example.textContent = i18next.t('page.example');
 
   const initialState = {
     formState: 'idle',

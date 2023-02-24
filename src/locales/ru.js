@@ -10,6 +10,7 @@ export default {
       postsTitle: 'Посты',
       postButton: 'Просмотр',
       modalCloseBtn: 'Закрыть',
+      example: 'Пример: https://ru.hexlet.io/lessons.rss',
     },
     info: {
       success: 'RSS успешно загружен',
