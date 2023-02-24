@@ -7,6 +7,7 @@ import handleError from './errorHandler';
 const updateFeeds = (state) => {
   if (state.feeds.uniqueLinks.length === 0) {
     setTimeout(() => updateFeeds(state), 5000);
+    return;
   }
 
   const requests = state.feeds.uniqueLinks.map((link) => {
