@@ -105,12 +105,12 @@ const render = (state, elements, i18next) => (path, value) => {
       }
       break;
 
-    case 'uniqueLinks':
+    case 'feeds.uniqueLinks':
     case 'formState':
       renderState(elements, value, i18next);
       break;
 
-    case 'feeds':
+    case 'feeds.data':
       elements.feedsColumn.innerHTML = '';
       elements.feedsColumn.prepend(createFeedsList(value, i18next));
       break;

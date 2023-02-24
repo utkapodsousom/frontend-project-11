@@ -63,8 +63,10 @@ const app = async () => {
   const initialState = {
     formState: 'idle',
     error: null,
-    uniqueLinks: [],
-    feeds: [],
+    feeds: {
+      data: [],
+      uniqueLinks: [],
+    },
     posts: [],
     uiState: {
       selectedPostId: null,
@@ -100,7 +102,7 @@ const app = async () => {
     // получили ввод из инпута
     const formData = new FormData(event.target);
     const input = formData.get('url');
-    const addedLinks = watchedState.uniqueLinks.map((link) => link);
+    const addedLinks = watchedState.feeds.uniqueLinks.map((link) => link);
     const schema = makeSchema(addedLinks);
     schema
       .validate(input)
@@ -113,13 +115,13 @@ const app = async () => {
           .get(getProxiedURL(input))
           .then(({ data: { contents } }) => {
             const { feed, posts } = parseRSS(contents);
-            watchedState.feeds.push(feed);
+            watchedState.feeds.data.push(feed);
             posts.forEach((post) => {
               watchedState.posts.push({ id: uniqueId(), ...post });
             });
             watchedState.error = null;
             watchedState.formState = 'added';
-            watchedState.uniqueLinks.push(input);
+            watchedState.feeds.uniqueLinks.push(input);
           })
           .catch((e) => {
             watchedState.error = handleError(axios, e);

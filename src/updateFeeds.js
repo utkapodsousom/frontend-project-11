@@ -5,11 +5,11 @@ import getProxiedURL from './originProxy';
 import handleError from './errorHandler';
 
 const updateFeeds = (state) => {
-  if (state.uniqueLinks.length === 0) {
+  if (state.feeds.uniqueLinks.length === 0) {
     setTimeout(() => updateFeeds(state), 5000);
   }
 
-  const requests = state.uniqueLinks.map((link) => {
+  const requests = state.feeds.uniqueLinks.map((link) => {
     const request = axios.get(getProxiedURL(link)).catch((e) => {
       state.error = handleError(e);
     });
