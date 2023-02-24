@@ -8,7 +8,7 @@ import ru from './locales/ru';
 import en from './locales/en';
 import render from './render';
 import getProxiedURL from './originProxy';
-import XMLParser from './parser';
+import parseRSS from './parser';
 import handleError from './errorHandler';
 import updateFeeds from './updateFeeds';
 
@@ -112,7 +112,7 @@ const app = async () => {
         axios
           .get(getProxiedURL(input))
           .then(({ data: { contents } }) => {
-            const { feed, posts } = XMLParser(contents);
+            const { feed, posts } = parseRSS(contents);
             watchedState.feeds.push(feed);
             posts.forEach((post) => {
               watchedState.posts.push({ id: uniqueId(), ...post });
