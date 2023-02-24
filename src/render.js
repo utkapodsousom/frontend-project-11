@@ -146,6 +146,8 @@ const render = (state, elements, i18next) => (path, value) => {
       elements.feedback.classList.add('text-danger');
       elements.feedback.textContent = i18next.t('errors.unknown');
   }
+
+  console.log(state);
 };
 
 export default render;

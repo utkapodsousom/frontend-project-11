@@ -81,16 +81,11 @@ const app = async () => {
   const makeSchema = (addedLinks) => yup.string().required().url().notOneOf(addedLinks);
 
   const postLinkClickListener = (event) => {
-    let postId;
-    if (event.target.classList.contains('btn')) {
-      postId = event.target.dataset.id;
-      watchedState.uiState.selectedPostId = postId;
+    const postId = event.target.dataset.id;
+    watchedState.uiState.selectedPostId = postId;
+    if (!watchedState.uiState.readPosts.has(postId)) {
+      watchedState.uiState.readPosts.add(postId);
     }
-    if (event.target.classList.contains('fw-bold')) {
-      const btnElement = event.target.nextElementSibling;
-      postId = btnElement.dataset.id;
-    }
-    watchedState.uiState.readPosts.add(postId);
   };
 
   const postsContainer = document.querySelector('.posts');
