@@ -71,12 +71,14 @@ const renderState = (elements, value, i18next) => {
       break;
     case 'submitting':
       elements.input.classList.remove('is-invalid');
+      elements.submitBtn.disabled = true;
       elements.feedback.classList.remove('text-danger');
       break;
     case 'added':
       elements.input.classList.remove('is-invalid');
       elements.feedback.classList.remove('text-danger');
       elements.feedback.classList.add('text-success');
+      elements.submitBtn.disabled = false;
       elements.feedback.textContent = i18next.t('info.success');
       elements.form.reset();
       elements.input.focus();
