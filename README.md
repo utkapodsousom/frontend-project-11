@@ -12,7 +12,7 @@ RSS Aggregator is a web application that allows to fetch RSS data and display it
 ### Install all dependencies
 
 ```
-npm install
+npm ci
 ```
 
 ### Run the app
