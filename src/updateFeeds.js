@@ -1,15 +1,18 @@
 import axios from 'axios';
 import { uniqueId } from 'lodash';
 import parseData from './parser';
-import getProxiedURL from './originProxy';
 import handleError from './errorHandler';
 
-const updateFeeds = (state) => {
-  if (state.feeds.uniqueLinks.length === 0) {
-    setTimeout(() => updateFeeds(state), 5000);
-    return;
-  }
+export const getProxiedURL = (link) => {
+  const proxiedURL = new URL(
+    '',
+    `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(link)}`,
+  );
 
+  return proxiedURL;
+};
+
+const updateFeeds = (state) => {
   const requests = state.feeds.uniqueLinks.map((link) => {
     const request = axios.get(getProxiedURL(link)).catch((e) => {
       state.error = handleError(e);

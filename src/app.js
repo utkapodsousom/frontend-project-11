@@ -7,10 +7,9 @@ import { uniqueId } from 'lodash';
 import ru from './locales/ru';
 import en from './locales/en';
 import render from './render';
-import getProxiedURL from './originProxy';
 import parseRSS from './parser';
 import handleError from './errorHandler';
-import updateFeeds from './updateFeeds';
+import updateFeeds, { getProxiedURL } from './updateFeeds';
 
 const app = async () => {
   await i18next.init({
@@ -87,6 +86,7 @@ const app = async () => {
       watchedState.uiState.readPosts.add(postId);
     }
   };
+
 
   const postsContainer = document.querySelector('.posts');
   postsContainer.addEventListener('click', postLinkClickListener);
