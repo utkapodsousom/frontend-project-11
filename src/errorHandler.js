@@ -7,7 +7,7 @@ const handleError = (axios, error) => {
     return 'networkError';
   }
 
-  return error.message.key ?? 'unknown';
+  return 'unknown';
 };
 
 export default handleError;
