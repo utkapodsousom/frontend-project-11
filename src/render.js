@@ -9,11 +9,17 @@ const createFeedsList = (feeds, i18next) => {
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'feeds__list');
   feeds.forEach(({ title, description }) => {
-    ul.innerHTML += `
-    <li class="feeds__item feed list-group-item">
-      <h3 class="feed__title h5 m-0">${title}</h3>
-      <p class="feed__description m-0 small text-black-50">${description}</p>
-    </li>`;
+    const li = document.createElement('li');
+    li.classList.add('feeds__item', 'feed', 'list-group-item');
+    const feedTitle = document.createElement('h3');
+    feedTitle.classList.add('feed__title', 'h5', 'm-0');
+    const feedDescription = document.createElement('p');
+    feedDescription.classList.add('feed__description', 'm-0', 'small', 'text-black-50');
+    feedTitle.textContent = title;
+    feedDescription.textContent = description;
+    li.appendChild(feedTitle);
+    li.appendChild(feedDescription);
+    ul.appendChild(li);
   });
   fragment.append(ul);
   return fragment;
@@ -28,18 +34,32 @@ const createPostsColumn = (posts, i18next) => {
   const ul = document.createElement('ul');
   ul.classList.add('list-group', 'posts__list');
   posts.forEach(({ id, postLink, postTitle }) => {
-    ul.innerHTML += `
-      <li class="posts__item list-group-item d-flex justify-content-between align-items-start border-0">
-        <a class="fw-bold" data-id="${id}" href="${postLink}" rel="noopener noreferrer" target="_blank">${postTitle}</a>
-        <button 
-          type="button"
-          class="btn btn-outline-primary btn-sm" 
-          data-id="${id}" 
-          data-bs-toggle="modal" 
-          data-bs-target="#modal">
-            ${i18next.t('page.postButton')}
-        </button>
-      </li>`;
+    const li = document.createElement('li');
+    li.classList.add(
+      'posts__item',
+      'list-group-item',
+      'd-flex',
+      'justify-content-between',
+      'align-items-start',
+      'border-0',
+    );
+    const link = document.createElement('a');
+    link.classList.add('fw-bold');
+    link.dataset.id = id;
+    link.setAttribute('href', postLink);
+    link.setAttribute('rel', 'noopener noreferrer');
+    link.setAttribute('target', '_blank');
+    link.textContent = postTitle;
+    const button = document.createElement('button');
+    button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
+    button.setAttribute('type', 'button');
+    button.dataset.id = id;
+    button.dataset.bsToggle = 'modal';
+    button.dataset.bsTarget = '#modal';
+    button.textContent = `${i18next.t('page.postButton')}`;
+    li.appendChild(link);
+    li.appendChild(button);
+    ul.appendChild(li);
   });
   fragment.append(ul);
   return fragment;
@@ -120,9 +140,7 @@ const render = (state, elements, i18next) => (path, value) => {
       break;
 
     case 'uiState.selectedPostId': {
-      const {
-        title, body, linkBtn, closeBtn,
-      } = elements.modalWindow;
+      const { title, body, linkBtn, closeBtn } = elements.modalWindow;
       const selectedPost = state.posts.find((post) => post.id === value);
       title.textContent = selectedPost.postTitle;
       body.textContent = selectedPost.postDescription;
@@ -146,8 +164,6 @@ const render = (state, elements, i18next) => (path, value) => {
       elements.feedback.classList.add('text-danger');
       elements.feedback.textContent = i18next.t('errors.unknown');
   }
-
-  console.log(state);
 };
 
 export default render;

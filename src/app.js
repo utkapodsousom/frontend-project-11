@@ -87,7 +87,6 @@ const app = async () => {
     }
   };
 
-
   const postsContainer = document.querySelector('.posts');
   postsContainer.addEventListener('click', postLinkClickListener);
 

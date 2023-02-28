@@ -5,8 +5,8 @@ import handleError from './errorHandler';
 
 export const getProxiedURL = (link) => {
   const proxiedURL = new URL(
-    '',
-    `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(link)}`,
+    `get?disableCache=true&url=${encodeURIComponent(link)}`,
+    'https://allorigins.hexlet.app',
   );
 
   return proxiedURL;
