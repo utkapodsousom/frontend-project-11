@@ -103,8 +103,6 @@ const app = async () => {
       .then(() => {
         watchedState.error = null;
         watchedState.formState = 'submitting';
-      })
-      .then(() => {
         axios
           .get(getProxiedURL(input))
           .then(({ data: { contents } }) => {
