@@ -140,7 +140,12 @@ const render = (state, elements, i18next) => (path, value) => {
       break;
 
     case 'uiState.selectedPostId': {
-      const { title, body, linkBtn, closeBtn } = elements.modalWindow;
+      const {
+        title,
+        body,
+        linkBtn,
+        closeBtn,
+      } = elements.modalWindow;
       const selectedPost = state.posts.find((post) => post.id === value);
       title.textContent = selectedPost.postTitle;
       body.textContent = selectedPost.postDescription;
