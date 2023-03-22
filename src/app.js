@@ -20,15 +20,6 @@ const app = async () => {
     },
   });
 
-  yup.setLocale({
-    string: {
-      url: () => ({ key: 'invalidUrl' }),
-    },
-    mixed: {
-      notOneOf: () => ({ key: 'alreadyInList' }),
-    },
-  });
-
   const elements = {
     form: document.getElementById('form'),
     inputLabel: document.querySelector('.input-label'),
@@ -77,7 +68,7 @@ const app = async () => {
   updateFeeds(watchedState);
 
   // схема валидации урла, проверяем на наличие урла в стэйте
-  const makeSchema = (addedLinks) => yup.string().required().url().notOneOf(addedLinks);
+  const makeSchema = (addedLinks) => yup.string().required().url('invalidUrl').notOneOf(addedLinks, 'alreadyInList');
 
   const postLinkClickListener = (event) => {
     const postId = event.target.dataset.id;
@@ -116,6 +107,7 @@ const app = async () => {
             watchedState.feeds.uniqueLinks.push(input);
           })
           .catch((e) => {
+            watchedState.formState = 'invalid';
             watchedState.error = handleError(axios, e);
           });
       })

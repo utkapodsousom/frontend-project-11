@@ -22,7 +22,7 @@ export default (data) => {
       postLink,
     };
     return post;
-  }).reverse();
+  });
 
   return {
     feed: {

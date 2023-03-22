@@ -84,10 +84,12 @@ const renderPosts = (state, elements, value, i18next) => {
 };
 
 const renderState = (elements, value, i18next) => {
+  console.log(value);
   switch (value) {
     case 'invalid':
       elements.input.classList.add('is-invalid');
       elements.feedback.classList.add('text-danger');
+      elements.submitBtn.disabled = false;
       break;
     case 'submitting':
       elements.input.classList.remove('is-invalid');
@@ -167,7 +169,7 @@ const render = (state, elements, i18next) => (path, value) => {
     default:
       elements.feedback.textContent = '';
       elements.feedback.classList.add('text-danger');
-      elements.feedback.textContent = i18next.t('errors.unknown');
+      elements.feedback.textContent = i18next.t(`errors.${state.error}`);
   }
 };
 
