@@ -1,83 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Title gets set by i18n ;)</title>
-  </head>
-  <body class="d-flex flex-column min-vh-100">
-    <div
-      class="modal fade"
-      id="modal"
-      tabindex="-1"
-      aria-labelledby="modalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalLabel">Modal title</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">...</div>
-          <div class="modal-footer">
-            <a href="#" rel="noopener noreferrer" target="_blank" class="btn btn-primary">Save changes</a>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          </div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Title gets set by i18n ;)</title>
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+  <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header align-items-start">
+          <h5 class="modal-title" id="modalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">...</div>
+        <div class="modal-footer">
+          <a href="#" rel="noopener noreferrer" target="_blank" class="btn btn-primary">Save changes</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-    <main class="flex-grow-1">
-      <section class="form-section container-fluid bg-dark p-5">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-10 col-lg-8 mx-auto text-white">
-              <h1 class="title display-3 mb-0 text-center"></h1>
-              <p class="subtitle lead text-center"></p>
-              <form action="" method="POST" id="form" class="rss-form text-body">
-                <div class="row">
-                  <div class="col">
-                    <label for="inputPasswrss-url" class="input-label visually-hidden"></label>
-                    <input
-                      type="text"
-                      name="url"
-                      aria-label="url"
-                      class="form-control"
-                      id="rss-url"
-                      placeholder=""
-                      required
-                    />
-                  </div>
-                  <div class="col-auto">
-                    <button type="submit" id="form-submit" class="btn btn-primary mb-0"></button>
-                  </div>
-                </div>
-              </form>
-              <p class="example mt-2 mb-0 text-muted"></p>
-              <p class="feedback position-absolute m-0 small"></p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section class="container p-5">
+  </div>
+  <main class="flex-grow-1">
+    <section class="form-section container-fluid bg-dark px-2 py-4 p-sm-5">
+      <div class="container">
         <div class="row">
-          <div class="col-md-4">
-            <div class="feeds"></div>
-          </div>
-          <div class="col-md-8">
-            <div class="posts">
-              <h2 class="posts__title"></h2>
-              <ul class="posts__list list-group border-0 rounded-0"></ul>
-            </div>
+          <div class="col-md-10 col-lg-8 mx-auto text-white">
+            <h1 class="title display-3 mb-0 text-center"></h1>
+            <p class="subtitle lead text-center"></p>
+            <form action="" method="POST" id="form" class="rss-form text-body">
+              <div class="row flex-column flex-sm-row">
+                <div class="col mb-2 mb-sm-0">
+                  <label for="rss-url" class="input-label visually-hidden"></label>
+                  <input type="text" name="url" aria-label="url" class="form-control" id="rss-url" placeholder=""
+                    required />
+                  <p class="example mt-0 mb-0 lh-1 text-muted"></p>
+                </div>
+                <div class="col-auto"> 
+                  <button type="submit" id="form-submit" class="btn btn-primary mb-0"></button>
+                </div>
+              </div>
+            </form>
+            <p class="feedback position-absolute m-0 small"></p>
           </div>
         </div>
-      </section>
-    </main>
-  </body>
+      </div>
+    </section>
+    <section class="container px-2 py-4 p-sm-5">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="feeds"></div>
+        </div>
+        <div class="col-md-8">
+          <div class="posts">
+            <h2 class="posts__title"></h2>
+            <ul class="posts__list list-group border-0 rounded-0"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+
 </html>

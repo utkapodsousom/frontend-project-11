@@ -39,12 +39,14 @@ const createPostsColumn = (posts, i18next) => {
       'posts__item',
       'list-group-item',
       'd-flex',
+      'flex-column',
+      'flex-sm-row',
       'justify-content-between',
       'align-items-start',
       'border-0',
     );
     const link = document.createElement('a');
-    link.classList.add('fw-bold');
+    link.classList.add('fw-bold', 'd-block', 'mb-2', 'mb-sm-0');
     link.dataset.id = id;
     link.setAttribute('href', postLink);
     link.setAttribute('rel', 'noopener noreferrer');
